@@ -1,15 +1,13 @@
 package org.belisario.products.jdbc;
 
+import org.belisario.products.jdbc.util.DatabaseConnection;
+
 import java.sql.*;
 
-public class JdbcConnection {
+public class App {
     public static void main(String[] args) {
 
-        String url = "jdbc:mysql://localhost:3306/java-ee-course?serverTimezone=UTC";
-        String username = "root";
-        String password = "root";
-
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = DatabaseConnection.getConnectionInstance();
              Statement stmt = conn.createStatement();
              ResultSet result = stmt.executeQuery("SELECT * FROM products")) {
             // using try with resources
@@ -26,7 +24,5 @@ public class JdbcConnection {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 }
