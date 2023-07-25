@@ -9,17 +9,20 @@ public class JdbcConnection {
         String username = "root";
         String password = "root";
 
-        try {
-            Connection conn = DriverManager.getConnection(url, username, password);
-            Statement stmt = conn.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT * FROM products");
-
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             Statement stmt = conn.createStatement();
+             ResultSet result = stmt.executeQuery("SELECT * FROM products")) {
+            // using try with resources
+            // in this case Jav will autoclose the connection and the other resources
             while (result.next()) {
-                System.out.println(result.getString("name"));
+                System.out.print(result.getInt("id"));
+                System.out.print(" | ");
+                System.out.print(result.getString("name"));
+                System.out.print(" | ");
+                System.out.print(result.getDouble("price"));
+                System.out.print(" | ");
+                System.out.println(result.getDate("register_date"));
             }
-            result.close();
-            stmt.close();
-            conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
