@@ -12,8 +12,9 @@ public class App {
     public static void main(String[] args) {
 
         try (Connection conn = DatabaseConnection.getConnectionInstance();) {
-            // using try with resources
-            // in this case Java will autoclose the connection and the other resources
+            // Using try with resources
+            // In this case Java will autoclose the connection and the other resources
+            // I´m still using this here so Java will autoclose this connection ate the end of the process
             Repository<Product> productRepository = new ProductRepositoryImpl();
             List<Product> products = productRepository.findAll();
 
