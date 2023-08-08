@@ -10,6 +10,6 @@ public interface Repository<T> {
 
     void save(T t);
 
-    void delet(Long id);
+    void delete(Long id);
 
 }
